@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ㅇㅇ : MonoBehaviour
+{
+
+
+    // 변형예제 4-7 2의 10승을 for문을 사용하여 계산하기
+    void Start()
+    {
+    int sum =0;
+    for(int i =1; i<=10;i++)
+    {
+    int a=1;
+    for(int b=0;b<i;b++)
+    {
+    a*=2;
+    }
+    sum+=a;
+    Debug.Log($"2의{i}승 : {a}");
+    }
+    Debug.Log($"누적 합 : {sum}");
+    
+}
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+
