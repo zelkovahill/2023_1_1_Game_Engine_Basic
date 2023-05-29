@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class EnemyController : MonoBehaviour
+{
+    public float moveSpeed = 3f;
+    public Transform[] waypoints;
+    private int currentWaypointIndex = 0;
+    private Rigidbody2D rb;
+    private Transform player;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        SetNextWaypoint();
+    }
+
+    private void FixedUpdate()
+    {
+        if (player != null)
+        {
+            // 플레이어의 위치를 추적하여 이동 방향 결정
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+        }
+        else
+        {
+            // 목표 지점 방향으로 이동
+            Vector2 direction = (waypoints[currentWaypointIndex].position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+
+            // 목표 지점에 도달하면 다음 지점으로 이동
+            float distanceToWaypoint = Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position);
+            if (distanceToWaypoint < 0.1f)
+            {
+                SetNextWaypoint();
+            }
+        }
+    }
+
+    private void SetNextWaypoint()
+    {
+        currentWaypointIndex++;
+        if (currentWaypointIndex >= waypoints.Length)
+        {
+            currentWaypointIndex = 0;
+        }
+    }
+}
